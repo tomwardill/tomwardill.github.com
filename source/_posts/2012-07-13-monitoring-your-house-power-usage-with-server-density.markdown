@@ -15,11 +15,11 @@ Then I started working for [Server Density](http://www.serverdensity.com). We do
 
 A condensed and simplified version of the listening daemon later, and I got this:
 
-{% img https://dl.dropbox.com/u/847783/blog/housepower.jpg Power usage graph %}
+{% img https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/housepower.jpg Power usage graph %}
 
 A bit more playing around, and this was possible:
 
-{% img https://dl.dropbox.com/u/847783/blog/housetemperature.jpg %}
+{% img https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/housetemperature.jpg %}
 
 So now I can see how warm my lounge is from anywhere in the world. Technology, it's great, ain't it?
 
