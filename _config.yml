@@ -70,7 +70,6 @@ github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-<<<<<<< HEAD
 twitter_user: tomwardill
 twitter_tweet_count: 4
 twitter_show_replies: false
