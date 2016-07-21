@@ -1,0 +1,250 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Monitoring your house power usage with Server Density - Tom Wardill</title>
+	<meta name="author" content="Tom Wardill">
+
+	
+	<meta name="description" content="A while back, I bought a Current Cost Envi power monitor for my house. Being something of a geek, I also bought the usb connecting cable. &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Tom Wardill" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Tom Wardill</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:blog.howrandom.net">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/tomwardill" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/tomwardill" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:blog.howrandom.net">
+	</form>
+</nav>
+
+</header>
+	
+<div id="banner" class="inner">
+	<div class="container">
+		<ul class="feed"></ul>
+	</div>
+	<small><a href="http://twitter.com/tomwardill">tomwardill</a> @ <a href="http://twitter.com">Twitter</a></small>
+	<div class="loading">Loading...</div>
+</div>
+<script src="/javascripts/twitter.js"></script>
+<script type="text/javascript">
+	(function($){
+		$('#banner').getTwitterFeed('tomwardill', 4, false);
+	})(jQuery);
+</script>
+
+	<div id="content" class="inner"><article class="post">
+	<h1 class="title">Monitoring Your House Power Usage With Server Density</h1>
+	<div class="entry-content"><p>A while back, I bought a <a href="http://www.currentcost.com/product-envi.html">Current Cost Envi</a> power monitor for my house. Being something of a geek, I also bought the usb connecting cable. Unfortunately, the monitoring software provided is windows only, and not actually all that much use for monitoring over a period of time.</p>
+
+<p>What we need is graphs. Lots of graphs.</p>
+
+<p>My initial stab at this one was some <a href="https://github.com/tomwardill/py-power-cost">custom code</a> that listened to the usb serial output, logged it to a local database then uploaded it to a remote server. This worked fine, but was a reasonably complex way of doing it. And I never quite got the graphs to work correctly.</p>
+
+<p>Then I started working for <a href="http://www.serverdensity.com">Server Density</a>. We do server monitoring, and make graphs. The agent that does this can make plugins. The little gears in my mind started working overtime (Yes, it&rsquo;s actually pretty obvious what&rsquo;s coming, but hey&hellip;).</p>
+
+<p>A condensed and simplified version of the listening daemon later, and I got this:</p>
+
+<p><img src="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/housepower.jpg" title="Power usage graph" ></p>
+
+<p>A bit more playing around, and this was possible:</p>
+
+<p><img src="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/housetemperature.jpg"></p>
+
+<p>So now I can see how warm my lounge is from anywhere in the world. Technology, it&rsquo;s great, ain&rsquo;t it?</p>
+
+<h2>How to make it work</h2>
+
+<p>First, you&rsquo;ll need the code. That&rsquo;s on github.</p>
+
+<p>   <div><script src='https://gist.github.com/3117465.js?file=PowerCost.py'></script>
+<noscript><pre><code>from StringIO import StringIO
+from datetime import datetime
+import serial
+from lxml import etree</p>
+
+<p>class PowerCost:</p>
+
+<pre><code>def __init__(self, agentConfig, checksLogger, rawConfig):
+    self.agentConfig = agentConfig
+    self.checksLogger = checksLogger
+    self.rawConfig = rawConfig
+
+def convert_to_dict(self, msg):
+
+    &amp;quot;&amp;quot;&amp;quot; Convert the xml msg into a python dictionary  &amp;quot;&amp;quot;&amp;quot;
+
+    if not msg:
+        return None
+
+    io = StringIO(msg)
+    data = {}
+
+    # parse xml into dict
+    tree = etree.parse(io)
+
+    # check we have a msg we're interested in
+    if not tree.xpath('//tmpr'):
+        return None
+
+    #data['time'] = tree.xpath('//time')[0].text
+    data['time'] = datetime.now()
+    data['temperature'] = tree.xpath('//tmpr')[0].text
+    data['sensor_id'] = tree.xpath('//id')[0].text
+    data['meter_type'] = tree.xpath('//type')[0].text
+
+    if tree.xpath('//ch1'):
+        data['ch1'] = tree.xpath('//ch1')[0].getchildren()[0].text
+    if tree.xpath('//ch2'):
+        data['ch2'] = tree.xpath('//ch2')[0].getchildren()[0].text
+    else:
+        data['ch2'] = 0
+    if tree.xpath('//ch3'):
+        data['ch3'] = tree.xpath('//ch3')[0].getchildren()[0].text
+    else:
+        data['ch3'] = 0
+
+    return data
+
+
+def run(self):
+
+    ser = serial.Serial('/dev/ttyUSB0', 57600, timeout = 1)
+
+    result = None
+
+    while True:
+        reading = ser.readline()
+        if reading and reading.startswith('&amp;lt;'):
+            converted = self.convert_to_dict(reading)
+            if not converted:
+                continue
+            result = converted
+            break
+
+    ser.close()
+
+    data = {'power': result['ch1'], 'temperature': result['temperature']}
+
+    return data
+</code></pre>
+
+<p></code></pre></noscript></div></p>
+
+<p>Then you&rsquo;ll need step one and two from <a href="http://support.serverdensity.com/knowledgebase/articles/76018-writing-a-plugin-linux-mac-and-freebsd">this guide</a></p>
+
+<p>Pop the plugin file into the directory you&rsquo;ve set up, and name it PowerCost.py, and then restart your agent.
+Then off you go.</p>
+
+<p>Enjoy it, and remember, graphing thing is the way of life.</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-13T21:50:00+01:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/current-cost/'>current cost</a>, <a class='category' href='/blog/categories/power-usage/'>power usage</a>, <a class='category' href='/blog/categories/server-density/'>server density</a>
+
+
+</div>
+	
+</div></article>
+<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    Tom Wardill
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

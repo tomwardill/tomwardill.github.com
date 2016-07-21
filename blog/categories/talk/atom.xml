@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: talk | Tom Wardill]]></title>
+  <link href="http://blog.howrandom.net/blog/categories/talk/atom.xml" rel="self"/>
+  <link href="http://blog.howrandom.net/"/>
+  <updated>2016-07-21T14:50:15+01:00</updated>
+  <id>http://blog.howrandom.net/</id>
+  <author>
+    <name><![CDATA[Tom Wardill]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Monitoring - A talk from PyConUK 2012]]></title>
+    <link href="http://blog.howrandom.net/blog/2012/10/01/monitoring-a-talk-from-pyconuk-2012/"/>
+    <updated>2012-10-01T20:05:00+01:00</updated>
+    <id>http://blog.howrandom.net/blog/2012/10/01/monitoring-a-talk-from-pyconuk-2012</id>
+    <content type="html"><![CDATA[<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.001.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.001.jpg</a>" width="350" height="350" title="Slide 1" ></p>
+
+<p>This is a write up of a talk that I gave at PyConUK 2012. It seemed to go pretty well, though it&rsquo;s not hugely technical. If you were there, I hope you enjoyed it, if you weren&rsquo;t, I hope you find this write up interesting.</p>
+
+<p><br />
+<br /></p>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.002.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.002.jpg</a>" width="350" height="350" title="Slide 2" ></p>
+
+<p>Given that work were paying for me to be there, I had to get at least one plug in; though there is a point to this slide.</p>
+
+<p>Server Monitoring is easy, the tools exist and are plug and play now. Install the monitoring agent of your choice: <a href="http://www.serverdensity.com">we do a very nice solution</a> and away you go.</p>
+
+<p>It&rsquo;s perhaps time to see if we can move the techniques and software developed for monitoring server hardware and move them to monitoring things that aren&rsquo;t servers.</p>
+
+<p><br />
+<br /></p>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.003.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.003.jpg</a>" width="350" height="350" title="Slide 3" ></p>
+
+<p>Heh.</p>
+
+<p>Always say just the one thing controversial in any presentation. This one is mine.</p>
+
+<p>While it&rsquo;s not meant entirely literally, there&rsquo;s a part truth in this. Starting development seems like a lot of slog to get to making a small dot moving around the screen. Everyone wants to make Quake (or the equivalent), and would prefer not to go through the boring stages of making the early stages.</p>
+
+<p>Personally, I find hardware more impressive from the outset. A flashing LED that I&rsquo;ve wired together isn&rsquo;t technically much harder than &lsquo;Hello World&rsquo;, but it certainly feels like I&rsquo;ve acheived more. Perhaps this can be used to introduce kids to programming, rather than the current pure-software approaches.</p>
+
+<p>One of the themes of this talk is that the current state of electronics has never been easier or cheaper. Software is boring, but hardware is impressive.</p>
+
+<p>So, not entirely true, but I hope you can understand my point.</p>
+
+<p><br />
+<br /></p>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.004.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.004.jpg</a>" width="350" height="350" title="Slide 4" ></p>
+
+<p>This slide is fairly obvious, except that there are two meanings to &lsquo;cheap&rsquo;.
+Obviously python is free, so monetarily it is cheap. The other meaning ties into the Library Support, there is so much python in existence, that there are usually multiple libraries for the same problem.
+This makes it cheap to change between them, if you try a library and don&rsquo;t get on with it, throw it out and choose another.</p>
+
+<p>External Dependencies is important, python is &lsquo;batteries included&rsquo;, it tends to ship with pretty much everything you&rsquo;d require to get started. The core library has modules for a lot of stuff.</p>
+
+<p><br />
+<br /></p>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.005.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.005.jpg</a>" width="350" height="350" title="Slide 5" ></p>
+
+<p>Yep, that&rsquo;s fairly obvious. There&rsquo;s a bunch of stuff that I can&rsquo;t think of, and haven&rsquo;t seen. There&rsquo;s a lot of people out there doing this type of thing at the minute, so it&rsquo;s getting easier every time.</p>
+
+<h2>Things you can monitor - a non-exhaustive list</h2>
+
+<p>There&rsquo;s not much I can say about these other than the contents of the slides, so SLIDES AWAY.</p>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.006.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.006.jpg</a>" width="350" height="350" title="Slide 6" >
+<img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.007.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.007.jpg</a>" width="350" height="350" title="Slide 7" >
+<img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.008.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.008.jpg</a>" width="350" height="350" title="Slide 8" >
+<img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.009.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.009.jpg</a>" width="350" height="350" title="Slide 9" >
+<img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.010.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.010.jpg</a>" width="350" height="350" title="Slide 10" ></p>
+
+<h2>Monitoring</h2>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.011.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.011.jpg</a>" width="350" height="350" title="Slide 11" ></p>
+
+<p>The most common types of data that you will encounter in monitoring is the float, closely followed by the boolean. Number of times the cat has left the house today, and is the cat currently in the house?</p>
+
+<p>Time is important, any instantaneous time measurement can be treated as a time series, given a longer scale.</p>
+
+<p><br />
+<br /></p>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.012.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.012.jpg</a>" width="350" height="350" title="Slide 12" ></p>
+
+<p>Accurate time is the most important thing, particularly if you are monitoring many disparate things. Without an accurate and joint time base to compare everything against, you&rsquo;ll end up doing a lot of work to shift the timebase to something useful.</p>
+
+<h2>How to do it</h2>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.013.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.013.jpg</a>" width="350" height="350" title="Slide 13" ></p>
+
+<p>These are the two most effective tools you can have. A Raspberry Pi and an Arduino. The difference have been talked about many times, so I won&rsquo;t go over them.
+Short story, the Pi is more independent, the Arduino has better inputs and currently a better ecosystem around it.</p>
+
+<p>There is however, nothing stopping you strapping an Ardunio to a Pi and having the best of both worlds (but doubling the cost of whatever project you have).</p>
+
+<p><br />
+<br /></p>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.014.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.014.jpg</a>" width="350" height="350" title="Slide 14" ></p>
+
+<p>This is some code. It&rsquo;s fairly simple code, mostly taken from the example and demos of two projects. Given a Garmin Heart Rate Monitor, an ANT+ usb stick, a Raspberry Pi and a 100mA gauge, this will display your Heart Rate on the console, and on the gauge.</p>
+
+<p>Simple project that took me a couple of hours to put together, starting with nothing but the bits. Wiring this into some form of monitoring / graphing website would be equally straightforward.</p>
+
+<p><br />
+<br /></p>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.015.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.015.jpg</a>" width="350" height="350" title="Slide 15" ></p>
+
+<p>Host software.</p>
+
+<p>Take Data. Make Graph.</p>
+
+<p>Also, the question that started this was &lsquo;can you graph your git commits against your heart rate, work out which bug annoyed you the most, and how many cups of tea it took to solve?&rsquo;
+The graph is most of the answer. It&rsquo;s something I built for a <a href="http://www.leedshack.com">hackday</a> using the Heart Rate monitoring from above. It&rsquo;s my git commits on the project against my heart rate at the time. It kind of worked, you can see where I got up to walk around and where I was at my most calm.</p>
+
+<h2>Things you can use</h2>
+
+<p>Again, non-exhaustive, but stuff I&rsquo;ve found that&rsquo;s cheap and easy. Most of it&rsquo;s fairly obvious.</p>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.016.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.016.jpg</a>" width="350" height="350" title="Slide 16" >
+<img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.017.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.017.jpg</a>" width="350" height="350" title="Slide 17" >
+<img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.018.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.018.jpg</a>" width="350" height="350" title="Slide 18" ></p>
+
+<h2>Feedback of Monitoring</h2>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.019.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.019.jpg</a>" width="350" height="350" title="Slide 19" ></p>
+
+<p>Lots of ways of getting feedback from your monitoring. Lights, sounds and graphs are pretty easy to do, that type of thing is pretty much a solved problem with regards to server monitoring, so just hijack that and use it for whatever else you can feed into it.</p>
+
+<p>Of course, THE INTERNETS is your easiest method, Twitter, emails, anything like that has an api and a library to interact with it in python.</p>
+
+<p><br />
+<br /></p>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.020.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.020.jpg</a>" width="350" height="350" title="Slide 20" ></p>
+
+<p>Well, not quite monitoring. But it is a twitter controlled colour changing tent built from a RaspberryPi and some Dioder units from IKEA. From the minds of <a href="http://twitter.com/mikechislett">Mike</a> and <a href="http://twitter.com/user_4574">Nathan</a>.</p>
+
+<h2>Costs</h2>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.021.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.021.jpg</a>" width="350" height="350" title="Slide 21" ></p>
+
+<p>Yup, quite cheap really. Not penny sweets cheap, but this stuff is all commercially available, and consumer grade. Easy to pick up off the shelf.</p>
+
+<h2>The End</h2>
+
+<p>So that&rsquo;s the end, I hope it&rsquo;s been a worthwhile read.</p>
+
+<p>Monitor everything, you never know when or where the data might be useful.</p>
+
+<p><a href="http://twitter.com/tomwardill">@tomwardill</a> if you have any comments or suggestions.</p>
+]]></content>
+  </entry>
+  
+</feed>

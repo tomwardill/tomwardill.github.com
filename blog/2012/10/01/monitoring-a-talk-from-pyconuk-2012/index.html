@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Tom Wardill</title>
+	<title>Monitoring - A talk from PyConUK 2012 - Tom Wardill</title>
 	<meta name="author" content="Tom Wardill">
 
 	
@@ -85,13 +85,9 @@
 	})(jQuery);
 </script>
 
-	<div id="content" class="inner">
-
-
-    <article class="post">
-	<h1 class="title"><a href="/blog/2012/10/01/monitoring-a-talk-from-pyconuk-2012/">Monitoring - a Talk From PyConUK 2012</a></h1>
-	<div class="entry-content">
-		<p><img src="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.001.jpg" width="350" height="350" title="Slide 1" ></p>
+	<div id="content" class="inner"><article class="post">
+	<h1 class="title">Monitoring - a Talk From PyConUK 2012</h1>
+	<div class="entry-content"><p><img src="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/monitoring/Monitoring.001.jpg" width="350" height="350" title="Slide 1" ></p>
 
 <p>This is a write up of a talk that I gave at PyConUK 2012. It seemed to go pretty well, though it&rsquo;s not hugely technical. If you were there, I hope you enjoyed it, if you weren&rsquo;t, I hope you find this write up interesting.</p>
 
@@ -232,10 +228,7 @@ The graph is most of the answer. It&rsquo;s something I built for a <a href="htt
 <p>Monitor everything, you never know when or where the data might be useful.</p>
 
 <p><a href="http://twitter.com/tomwardill">@tomwardill</a> if you have any comments or suggestions.</p>
-
-		
-		
-	</div>
+</div>
 
 
 <div class="meta">
@@ -261,234 +254,19 @@ The graph is most of the answer. It&rsquo;s something I built for a <a href="htt
 </div>
 	
 </div></article>
-
-
-    <article class="post">
-	<h1 class="title"><a href="/blog/2012/09/08/touchatag-on-osx-with-tageventor/">Touchatag on OSX With tagEventor</a></h1>
-	<div class="entry-content">
-		<p>I&rsquo;m planning a talk on monitoring things that aren&rsquo;t servers. The physical realm is something we all interact with, but very rarely actually monitor.</p>
-
-<p>Part of this involves a touchatag (tikitag) RFID reader, my laptop and an Oyster card.</p>
-
-<p>The easiest way to do &lsquo;if this card turns up, do this&rsquo; is some software called <a href="http://code.google.com/p/tageventor/">tagEventor</a>. A simple daemon that listen to the card, and will run a given script for a particular card.</p>
-
-<p>Herein lies instructions on how to make it work on OSX (Mountain Lion in my case, but instructions should apply to most).</p>
-
-<h2>PCSCD</h2>
-
-<p>This is the system daemon for talking to card readers. It&rsquo;s shipped with OSX and has the required dependencies. It needs a modification to the config to work with the Touchatag (as it ships with an unrecognised firmware).</p>
-
-<pre><code>sudo vim /usr/libexec/SmartCardServices/drivers/ifd-ccid.bundle/Contents/Info.plist
-
-Change 
-&lt;key&gt;ifdDriverOptions&lt;/key&gt;
-&lt;string&gt;0x0000&lt;/string&gt;
-
-to
-
-&lt;key&gt;ifdDriverOptions&lt;/key&gt;
-&lt;string&gt;0x0004&lt;/string&gt;
-</code></pre>
-
-<p>And either restart the system or run the daemon manually with</p>
-
-<pre><code>sudo /usr/sbin/pcscd -f
-</code></pre>
-
-<h2>tagEventor</h2>
-
-<p>Currently, the easiest way to get this is to build it from source, using <a href="https://github.com/bettse/tagEventor">this github branch from bettse</a>.</p>
-
-<p>You will need XCode installed, as it&rsquo;s structured as an XCode project.</p>
-
-<ol>
-<li>Clone the branch from github</li>
-<li>Open the XCode project</li>
-<li>Product > Build</li>
-<li>In the left column in XCode, dropdown &lsquo;Products&rsquo;, right click tagEventor and select &lsquo;Show in Finder&rsquo;</li>
-<li>Copy the tagEventor binary to somewhere useful</li>
-<li>In a terminal, cd to where you put the binary, and run <code>./tagEvent -v 3</code></li>
-</ol>
-
-
-<p>If everything is successful, you will see the output of tagEventor scroll by. If you don&rsquo;t, check that pcscd is running, and try testing that with <code>pcsctest</code>.</p>
-
-<p>Once tagEventor is running, poke a rfid card at it (Oyster cards work), and you should see it detect the card and attempt to run a script. Remove the card and you should see similar output.</p>
-
-<p>Create that script in whatever you&rsquo;re favoured language is, and it&rsquo;ll be executed with arguments when the card appears and leaves.</p>
-
-<p>Enjoy your physical computer interface</p>
-
-		
-		
+<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
 	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-08T10:58:00+01:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/electronics/'>electronics</a>, <a class='category' href='/blog/categories/osx/'>osx</a>, <a class='category' href='/blog/categories/rfid/'>rfid</a>, <a class='category' href='/blog/categories/touchatag/'>touchatag</a>
-
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
 
 </div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h1 class="title"><a href="/blog/2012/07/13/monitoring-your-house-power-usage-with-server-density/">Monitoring Your House Power Usage With Server Density</a></h1>
-	<div class="entry-content">
-		<p>A while back, I bought a <a href="http://www.currentcost.com/product-envi.html">Current Cost Envi</a> power monitor for my house. Being something of a geek, I also bought the usb connecting cable. Unfortunately, the monitoring software provided is windows only, and not actually all that much use for monitoring over a period of time.</p>
-
-<p>What we need is graphs. Lots of graphs.</p>
-
-<p>My initial stab at this one was some <a href="https://github.com/tomwardill/py-power-cost">custom code</a> that listened to the usb serial output, logged it to a local database then uploaded it to a remote server. This worked fine, but was a reasonably complex way of doing it. And I never quite got the graphs to work correctly.</p>
-
-<p>Then I started working for <a href="http://www.serverdensity.com">Server Density</a>. We do server monitoring, and make graphs. The agent that does this can make plugins. The little gears in my mind started working overtime (Yes, it&rsquo;s actually pretty obvious what&rsquo;s coming, but hey&hellip;).</p>
-
-<p>A condensed and simplified version of the listening daemon later, and I got this:</p>
-
-<p><img src="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/housepower.jpg" title="Power usage graph" ></p>
-
-<p>A bit more playing around, and this was possible:</p>
-
-<p><img src="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/housetemperature.jpg"></p>
-
-<p>So now I can see how warm my lounge is from anywhere in the world. Technology, it&rsquo;s great, ain&rsquo;t it?</p>
-
-<h2>How to make it work</h2>
-
-<p>First, you&rsquo;ll need the code. That&rsquo;s on github.</p>
-
-<p>   <div><script src='https://gist.github.com/3117465.js?file=PowerCost.py'></script>
-<noscript><pre><code>from StringIO import StringIO
-from datetime import datetime
-import serial
-from lxml import etree</p>
-
-<p>class PowerCost:</p>
-
-<pre><code>def __init__(self, agentConfig, checksLogger, rawConfig):
-    self.agentConfig = agentConfig
-    self.checksLogger = checksLogger
-    self.rawConfig = rawConfig
-
-def convert_to_dict(self, msg):
-
-    &amp;quot;&amp;quot;&amp;quot; Convert the xml msg into a python dictionary  &amp;quot;&amp;quot;&amp;quot;
-
-    if not msg:
-        return None
-
-    io = StringIO(msg)
-    data = {}
-
-    # parse xml into dict
-    tree = etree.parse(io)
-
-    # check we have a msg we're interested in
-    if not tree.xpath('//tmpr'):
-        return None
-
-    #data['time'] = tree.xpath('//time')[0].text
-    data['time'] = datetime.now()
-    data['temperature'] = tree.xpath('//tmpr')[0].text
-    data['sensor_id'] = tree.xpath('//id')[0].text
-    data['meter_type'] = tree.xpath('//type')[0].text
-
-    if tree.xpath('//ch1'):
-        data['ch1'] = tree.xpath('//ch1')[0].getchildren()[0].text
-    if tree.xpath('//ch2'):
-        data['ch2'] = tree.xpath('//ch2')[0].getchildren()[0].text
-    else:
-        data['ch2'] = 0
-    if tree.xpath('//ch3'):
-        data['ch3'] = tree.xpath('//ch3')[0].getchildren()[0].text
-    else:
-        data['ch3'] = 0
-
-    return data
-
-
-def run(self):
-
-    ser = serial.Serial('/dev/ttyUSB0', 57600, timeout = 1)
-
-    result = None
-
-    while True:
-        reading = ser.readline()
-        if reading and reading.startswith('&amp;lt;'):
-            converted = self.convert_to_dict(reading)
-            if not converted:
-                continue
-            result = converted
-            break
-
-    ser.close()
-
-    data = {'power': result['ch1'], 'temperature': result['temperature']}
-
-    return data
-</code></pre>
-
-<p></code></pre></noscript></div></p>
-
-<p>Then you&rsquo;ll need step one and two from <a href="http://support.serverdensity.com/knowledgebase/articles/76018-writing-a-plugin-linux-mac-and-freebsd">this guide</a></p>
-
-<p>Pop the plugin file into the directory you&rsquo;ve set up, and name it PowerCost.py, and then restart your agent.
-Then off you go.</p>
-
-<p>Enjoy it, and remember, graphing thing is the way of life.</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-13T21:50:00+01:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/current-cost/'>current cost</a>, <a class='category' href='/blog/categories/power-usage/'>power usage</a>, <a class='category' href='/blog/categories/server-density/'>server density</a>
-
-
-</div>
-	
-</div></article>
-
-<nav id="pagenavi">
-    
-    
-    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
-</nav></div>
 	<footer id="footer" class="inner">Copyright &copy; 2016
 
     Tom Wardill

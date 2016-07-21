@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: current cost | Tom Wardill]]></title>
+  <link href="http://blog.howrandom.net/blog/categories/current-cost/atom.xml" rel="self"/>
+  <link href="http://blog.howrandom.net/"/>
+  <updated>2016-07-21T14:50:15+01:00</updated>
+  <id>http://blog.howrandom.net/</id>
+  <author>
+    <name><![CDATA[Tom Wardill]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Monitoring your house power usage with Server Density]]></title>
+    <link href="http://blog.howrandom.net/blog/2012/07/13/monitoring-your-house-power-usage-with-server-density/"/>
+    <updated>2012-07-13T21:50:00+01:00</updated>
+    <id>http://blog.howrandom.net/blog/2012/07/13/monitoring-your-house-power-usage-with-server-density</id>
+    <content type="html"><![CDATA[<p>A while back, I bought a <a href="http://www.currentcost.com/product-envi.html">Current Cost Envi</a> power monitor for my house. Being something of a geek, I also bought the usb connecting cable. Unfortunately, the monitoring software provided is windows only, and not actually all that much use for monitoring over a period of time.</p>
+
+<p>What we need is graphs. Lots of graphs.</p>
+
+<p>My initial stab at this one was some <a href="https://github.com/tomwardill/py-power-cost">custom code</a> that listened to the usb serial output, logged it to a local database then uploaded it to a remote server. This worked fine, but was a reasonably complex way of doing it. And I never quite got the graphs to work correctly.</p>
+
+<p>Then I started working for <a href="http://www.serverdensity.com">Server Density</a>. We do server monitoring, and make graphs. The agent that does this can make plugins. The little gears in my mind started working overtime (Yes, it&rsquo;s actually pretty obvious what&rsquo;s coming, but hey&hellip;).</p>
+
+<p>A condensed and simplified version of the listening daemon later, and I got this:</p>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/housepower.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/housepower.jpg</a>" title="Power usage graph" ></p>
+
+<p>A bit more playing around, and this was possible:</p>
+
+<p><img class="<a" src="href="https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/housetemperature.jpg">https://github.com/tomwardill/tomwardill.github.com/raw/source/source/media/images/housetemperature.jpg</a>"></p>
+
+<p>So now I can see how warm my lounge is from anywhere in the world. Technology, it&rsquo;s great, ain&rsquo;t it?</p>
+
+<h2>How to make it work</h2>
+
+<p>First, you&rsquo;ll need the code. That&rsquo;s on github.</p>
+
+<p>   <div><script src='https://gist.github.com/3117465.js?file=PowerCost.py'></script>
+<noscript><pre><code>from StringIO import StringIO
+from datetime import datetime
+import serial
+from lxml import etree
+
+class PowerCost:
+
+    def __init__(self, agentConfig, checksLogger, rawConfig):
+        self.agentConfig = agentConfig
+        self.checksLogger = checksLogger
+        self.rawConfig = rawConfig
+
+    def convert_to_dict(self, msg):
+
+        &quot;&quot;&quot; Convert the xml msg into a python dictionary  &quot;&quot;&quot;
+
+        if not msg:
+            return None
+
+        io = StringIO(msg)
+        data = {}
+
+        # parse xml into dict
+        tree = etree.parse(io)
+
+        # check we have a msg we're interested in
+        if not tree.xpath('//tmpr'):
+            return None
+
+        #data['time'] = tree.xpath('//time')[0].text
+        data['time'] = datetime.now()
+        data['temperature'] = tree.xpath('//tmpr')[0].text
+        data['sensor_id'] = tree.xpath('//id')[0].text
+        data['meter_type'] = tree.xpath('//type')[0].text
+
+        if tree.xpath('//ch1'):
+            data['ch1'] = tree.xpath('//ch1')[0].getchildren()[0].text
+        if tree.xpath('//ch2'):
+            data['ch2'] = tree.xpath('//ch2')[0].getchildren()[0].text
+        else:
+            data['ch2'] = 0
+        if tree.xpath('//ch3'):
+            data['ch3'] = tree.xpath('//ch3')[0].getchildren()[0].text
+        else:
+            data['ch3'] = 0
+
+        return data
+
+
+    def run(self):
+
+        ser = serial.Serial('/dev/ttyUSB0', 57600, timeout = 1)
+        
+        result = None
+
+        while True:
+            reading = ser.readline()
+            if reading and reading.startswith('&lt;'):
+                converted = self.convert_to_dict(reading)
+                if not converted:
+                    continue
+                result = converted
+                break
+        
+        ser.close()
+
+        data = {'power': result['ch1'], 'temperature': result['temperature']}
+
+        return data
+</code></pre></noscript></div>
+</p>
+
+<p>Then you&rsquo;ll need step one and two from <a href="http://support.serverdensity.com/knowledgebase/articles/76018-writing-a-plugin-linux-mac-and-freebsd">this guide</a></p>
+
+<p>Pop the plugin file into the directory you&rsquo;ve set up, and name it PowerCost.py, and then restart your agent.
+Then off you go.</p>
+
+<p>Enjoy it, and remember, graphing thing is the way of life.</p>
+]]></content>
+  </entry>
+  
+</feed>

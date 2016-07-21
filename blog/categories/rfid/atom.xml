@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: rfid | Tom Wardill]]></title>
+  <link href="http://blog.howrandom.net/blog/categories/rfid/atom.xml" rel="self"/>
+  <link href="http://blog.howrandom.net/"/>
+  <updated>2016-07-21T14:50:15+01:00</updated>
+  <id>http://blog.howrandom.net/</id>
+  <author>
+    <name><![CDATA[Tom Wardill]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Touchatag on OSX with tagEventor]]></title>
+    <link href="http://blog.howrandom.net/blog/2012/09/08/touchatag-on-osx-with-tageventor/"/>
+    <updated>2012-09-08T10:58:00+01:00</updated>
+    <id>http://blog.howrandom.net/blog/2012/09/08/touchatag-on-osx-with-tageventor</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m planning a talk on monitoring things that aren&rsquo;t servers. The physical realm is something we all interact with, but very rarely actually monitor.</p>
+
+<p>Part of this involves a touchatag (tikitag) RFID reader, my laptop and an Oyster card.</p>
+
+<p>The easiest way to do &lsquo;if this card turns up, do this&rsquo; is some software called <a href="http://code.google.com/p/tageventor/">tagEventor</a>. A simple daemon that listen to the card, and will run a given script for a particular card.</p>
+
+<p>Herein lies instructions on how to make it work on OSX (Mountain Lion in my case, but instructions should apply to most).</p>
+
+<h2>PCSCD</h2>
+
+<p>This is the system daemon for talking to card readers. It&rsquo;s shipped with OSX and has the required dependencies. It needs a modification to the config to work with the Touchatag (as it ships with an unrecognised firmware).</p>
+
+<pre><code>sudo vim /usr/libexec/SmartCardServices/drivers/ifd-ccid.bundle/Contents/Info.plist
+
+Change 
+&lt;key&gt;ifdDriverOptions&lt;/key&gt;
+&lt;string&gt;0x0000&lt;/string&gt;
+
+to
+
+&lt;key&gt;ifdDriverOptions&lt;/key&gt;
+&lt;string&gt;0x0004&lt;/string&gt;
+</code></pre>
+
+<p>And either restart the system or run the daemon manually with</p>
+
+<pre><code>sudo /usr/sbin/pcscd -f
+</code></pre>
+
+<h2>tagEventor</h2>
+
+<p>Currently, the easiest way to get this is to build it from source, using <a href="https://github.com/bettse/tagEventor">this github branch from bettse</a>.</p>
+
+<p>You will need XCode installed, as it&rsquo;s structured as an XCode project.</p>
+
+<ol>
+<li>Clone the branch from github</li>
+<li>Open the XCode project</li>
+<li>Product > Build</li>
+<li>In the left column in XCode, dropdown &lsquo;Products&rsquo;, right click tagEventor and select &lsquo;Show in Finder&rsquo;</li>
+<li>Copy the tagEventor binary to somewhere useful</li>
+<li>In a terminal, cd to where you put the binary, and run <code>./tagEvent -v 3</code></li>
+</ol>
+
+
+<p>If everything is successful, you will see the output of tagEventor scroll by. If you don&rsquo;t, check that pcscd is running, and try testing that with <code>pcsctest</code>.</p>
+
+<p>Once tagEventor is running, poke a rfid card at it (Oyster cards work), and you should see it detect the card and attempt to run a script. Remove the card and you should see similar output.</p>
+
+<p>Create that script in whatever you&rsquo;re favoured language is, and it&rsquo;ll be executed with arguments when the card appears and leaves.</p>
+
+<p>Enjoy your physical computer interface</p>
+]]></content>
+  </entry>
+  
+</feed>
